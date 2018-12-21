@@ -13,10 +13,17 @@ public class MultPosOfNumbWithPrimeSumDigits {
         int pos = 1;
         // произведение позиций
         int multPos = 1;
+        // сумма цифр числа
+        int sum;
+        // сумма - простое число
+        boolean isPrime=false;
         while (value != -1) {
             // вычисляем сумму цифр числа
             // проверяем является ли сумма простой
             // если да, умножаем
+            if (isPrime) {
+                multPos*=pos;
+            }
             // считываем следующее значение и увеличиваем позицию
             value = scanner.nextInt();
             pos ++;
