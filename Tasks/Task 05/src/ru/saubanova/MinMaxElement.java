@@ -1,3 +1,5 @@
+package ru.saubanova;
+
 public class MinMaxElement {
     public static void main(String[] args) {
         //инициализация массива
