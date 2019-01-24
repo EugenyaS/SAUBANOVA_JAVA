@@ -1,3 +1,5 @@
+package ru.saubanova;
+
 public class TvRemote {
     private TvSet  tvSet;
 

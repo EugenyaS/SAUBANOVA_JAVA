@@ -1,3 +1,5 @@
+package ru.saubanova;
+
 import java.util.Scanner;
 
 public class Main {

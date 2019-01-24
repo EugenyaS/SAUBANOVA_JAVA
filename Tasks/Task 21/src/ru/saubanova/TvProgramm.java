@@ -1,3 +1,5 @@
+package ru.saubanova;
+
 import java.util.Random;
 
 public class TvProgramm {
