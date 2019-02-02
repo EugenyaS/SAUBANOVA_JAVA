@@ -2,7 +2,7 @@ public class Transport implements Movable, Parkable {
     private String number;
     private int currentX;
     private int currentY;
-    private String parkPlaceNumber;
+    private ParkingPlace parkingPlace;
 
     public Transport(String number) {
         setCurrentX(0);
@@ -40,12 +40,12 @@ public class Transport implements Movable, Parkable {
         }
     }
 
-    public String getParkPlaceNumber() {
-        return parkPlaceNumber;
+    public ParkingPlace getParkPlaceNumber() {
+        return parkingPlace;
     }
 
-    private void setParkPlaceNumber(String parkPlaceNumber) {
-        this.parkPlaceNumber = parkPlaceNumber;
+    private void setParkPlace(ParkingPlace parkingPlace) {
+        this.parkingPlace = parkingPlace;
     }
 
     @Override
@@ -56,12 +56,14 @@ public class Transport implements Movable, Parkable {
     }
 
     @Override
-    public void doPark() {
+    public void doPark(Parking parking) {
+        setParkPlace(parking.park(this));
 
     }
 
     @Override
-    public void doUnpark() {
+    public void doUnpark(Parking parking) {
+        parking.unpark();
 
     }
 }

@@ -8,14 +8,15 @@ class Parking {
         }
     }
 
-    public String park(Transport transport) {
+    public ParkingPlace park(Transport transport) {
         for (int i = 0; i < places.length; i++) {
             if (places[i].isEmpty()) {
-                return this.places[i].use(transport);
+                this.places[i].use(transport);
+                return this.places[i];
             }
         }
         System.err.println("Нет мест");
-        return "";
+        return null;
     }
 
     public void unpark(String number) {

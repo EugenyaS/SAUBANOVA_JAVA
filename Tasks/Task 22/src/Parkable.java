@@ -1,5 +1,5 @@
 public interface Parkable {
-    public void doPark();
+    public void doPark(Parking parking);
 
-    public void doUnpark();
+    public void doUnpark(Parking parking);
 }
