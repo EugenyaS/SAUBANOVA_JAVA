@@ -7,7 +7,7 @@ public class Transport implements Movable, Parkable {
     public Transport(String number) {
         setCurrentX(0);
         setCurrentY(0);
-        setParkPlaceNumber("");
+        setParkPlace(null);
         setNumber(number);
     }
 
@@ -63,7 +63,7 @@ public class Transport implements Movable, Parkable {
 
     @Override
     public void doUnpark(Parking parking) {
-        parking.unpark();
-
+        parking.unpark(getNumber());
+        setParkPlace(null);
     }
 }
