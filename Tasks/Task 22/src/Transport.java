@@ -1,14 +1,17 @@
 public class Transport implements Movable, Parkable {
     private String number;
     private int currentX;
-    private int currentY;
     private ParkingPlace parkingPlace;
 
     public Transport(String number) {
         setCurrentX(0);
-        setCurrentY(0);
         setParkPlace(null);
         setNumber(number);
+    }
+
+    @Override
+    public void moving(int x) {
+        setCurrentX(getCurrentX() + x);
     }
 
     public void setNumber(String number) {
@@ -27,43 +30,42 @@ public class Transport implements Movable, Parkable {
         this.currentX = currentX;
     }
 
-    public int getCurrentY() {
-        return currentY;
-    }
-
-    private void setCurrentY(int currentY) {
-        if ((currentY < 0)) {
-            System.err.println("Разбились (((");
-            this.currentY = 0;
-        } else {
-            this.currentY = currentY;
-        }
-    }
-
-    public ParkingPlace getParkPlaceNumber() {
+    public ParkingPlace getParkPlace() {
         return parkingPlace;
     }
+
+    public String getParkPlaceNumber() {
+        if (parkingPlace != null) {
+            return parkingPlace.getParkingPlaceNumber();
+        } else {
+            return "незапаркован";
+        }
+    };
 
     private void setParkPlace(ParkingPlace parkingPlace) {
         this.parkingPlace = parkingPlace;
     }
 
-    @Override
-
-    public void moving(int x, int y) {
-        setCurrentX(this.currentX + x);
-        setCurrentY(this.currentY + y);
+    public void printTransport() {
+        System.out.println(getNumber() + ": " + getParkPlaceNumber());
     }
 
     @Override
     public void doPark(Parking parking) {
-        setParkPlace(parking.park(this));
-
+        if (getParkPlace() == null) {
+            setParkPlace(parking.park(this));
+        }else {
+            System.out.println(getNumber()+": "+"Уже припаркован!");
+        }
     }
 
     @Override
     public void doUnpark(Parking parking) {
-        parking.unpark(getNumber());
-        setParkPlace(null);
+        if (getParkPlace() != null) {
+            parking.unpark(getNumber());
+            setParkPlace(null);
+        } else {
+            System.out.println(getNumber()+": "+"не припаркована");
+        }
     }
 }

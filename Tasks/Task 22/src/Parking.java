@@ -15,7 +15,7 @@ class Parking {
                 return this.places[i];
             }
         }
-        System.err.println("Нет мест");
+        System.out.println(transport.getNumber()+": "+"Нет мест");
         return null;
     }
 
