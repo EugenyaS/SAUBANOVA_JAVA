@@ -1,10 +1,9 @@
-package ru.itpark;
+package ru.saubanova;
 
-import ru.itpark.models.User;
-import ru.itpark.repositories.UsersRepository;
-import ru.itpark.repositories.jdbc.DataBaseConnector;
-import ru.itpark.repositories.jdbc.UsersRepositoryJdbcImpl;
-import ru.itpark.utils.UserFromConsoleRetriever;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import ru.saubanova.models.User;
+import ru.saubanova.repositories.UsersRepository;
+import ru.saubanova.repositories.jdbc.UsersRepositoryJdbcImpl;
 
 import java.util.List;
 
@@ -14,9 +13,13 @@ public class MainOnJdbcRepository {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/my_service";
 
     public static void main(String[] args) {
-        UserFromConsoleRetriever retriever = new UserFromConsoleRetriever();
-        DataBaseConnector connector = new DataBaseConnector(DB_URL, DB_USER, DB_PASSWORD);
-        UsersRepository usersRepository = new UsersRepositoryJdbcImpl(connector);
+        DriverManagerDataSource dataSource=new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("password");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/my_service");
+
+        UsersRepository usersRepository = new UsersRepositoryJdbcImpl(dataSource);
         List<User> users = usersRepository.findAll();
 
         for (User user : users) {

@@ -1,77 +1,67 @@
-package ru.itpark.repositories.jdbc;
+package ru.saubanova.repositories.jdbc;
 
-import ru.itpark.models.User;
-import ru.itpark.repositories.RowMapper;
-import ru.itpark.repositories.UsersRepository;
-//import ru.itpark.repositories.UsersRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import ru.saubanova.models.User;
+import ru.saubanova.repositories.UsersRepository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import javax.sql.DataSource;
 import java.util.List;
 
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
-    //language=SQL
-    private final static String SQL_SELECT_BY_ID = "select * from service_user where id = ";
+  //language=SQL
+  private final static String SQL_SELECT_BY_ID = "select * from service_user where id = ? ";
+  //language=SQL
+  private final static String SQL_SELECT_BY_LOGIN = "select * from service_user where login= ?";
 
-    //language=SQL
-    private final static String SQL_SELECT_ALL = "select * from service_user";
+  //language=SQL
+  private final static String SQL_SELECT_ALL = "select * from service_user";
 
-    private DataBaseConnector connector;
+  //language=SQL
+  private final static String SQL_INSERT_USER = "insert into service_user(first_name,last_name,login,password) values (?, ?, ?, ?)";
 
-    private RowMapper<User> usersRowMapper = row -> new User(row.getLong("id"),
+  private JdbcTemplate jdbcTemplate;
+
+  public UsersRepositoryJdbcImpl(DataSource dataSource) {
+    this.jdbcTemplate = new JdbcTemplate(dataSource);
+  }
+
+  private RowMapper<User> usersRowMapper = (row, rowNumber) -> {
+    return new User(row.getLong("id"),
             row.getString("first_name"),
             row.getString("last_name"),
             row.getString("login"),
             row.getString("password"));
+  };
 
-//    private UsersRowMapper usersRowMapper;
 
-    public UsersRepositoryJdbcImpl(DataBaseConnector connector) {
-        this.connector = connector;
-//        this.usersRowMapper = new UsersRowMapper();
+  @Override
+  public void save(User model) {
+    jdbcTemplate.update(SQL_INSERT_USER, model.getFirstName(), model.getLastName(), model.getLogin(), model.getPassword());
+  }
+
+  @Override
+  public User find(Long id) {
+    try {
+      return jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, usersRowMapper, id);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
     }
+  }
 
-    @Override
-    public void save(User model) {
-        //language=sql
-        String insertQuery = "insert into service_user(first_name, last_name, login, password) " +
-                "values ('" + model.getFirstName() + "','" + model.getLastName() + "','" + model.getLogin()
-                + "','" + model.getPassword() + "');";
+  @Override
+  public List<User> findAll() {
+    return jdbcTemplate.query(SQL_SELECT_ALL, usersRowMapper);
+  }
 
-        System.out.println("RUN QUERY: " + insertQuery);
-
-        if (!connector.executeUpdate(insertQuery)) {
-            throw new IllegalStateException("Some error");
-        }
+  @Override
+  public User findOneByLogin(String login) {
+    try {
+      return jdbcTemplate.queryForObject(SQL_SELECT_BY_LOGIN, usersRowMapper, login);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
     }
-
-    @Override
-    public User find(Long id) {
-        ResultSet result = connector.executeQuery(SQL_SELECT_BY_ID + id + ";");
-        try {
-            if (result.next()) {
-                return usersRowMapper.mapRow(result);
-            } else return null;
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    @Override
-    public List<User> findAll() {
-        ResultSet result = connector.executeQuery(SQL_SELECT_ALL);
-        List<User> users = new ArrayList<>();
-        try {
-            while (result.next()) {
-                User user = usersRowMapper.mapRow(result);
-                users.add(user);
-            }
-            return users;
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
+  }
 }

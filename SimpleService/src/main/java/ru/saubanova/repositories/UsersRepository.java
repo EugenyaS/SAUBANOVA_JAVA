@@ -1,6 +1,9 @@
-package ru.itpark.repositories;
+package ru.saubanova.repositories;
 
-import ru.itpark.models.User;
+import ru.saubanova.models.User;
+
+import java.util.List;
 
 public interface UsersRepository extends CrudRepository<User> {
+  User findOneByLogin(String login);
 }

@@ -1,4 +1,4 @@
-package ru.itpark.models;
+package ru.saubanova.models;
 
 public class User {
     private Long id;

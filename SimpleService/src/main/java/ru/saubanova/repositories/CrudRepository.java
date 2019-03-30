@@ -1,4 +1,4 @@
-package ru.itpark.repositories;
+package ru.saubanova.repositories;
 
 import java.util.List;
 
