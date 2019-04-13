@@ -23,6 +23,6 @@ public class Main {
         System.out.println("Элемент с ииндексом 100 - "+list.get(100));
         System.out.println("Элемент с ииндексом -10 - "+list.get(-10));
         list.sort();
-        list.print("Сортировка ");
+        list.print("Сортировка");
     }
 }
