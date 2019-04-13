@@ -25,10 +25,5 @@ public class MainOnJdbcRepository {
         for (User user : users) {
             System.out.println(user);
         }
-//        User user = retriever.retrieveUser();
-//        usersRepository.save(user);
-//        System.out.println(usersRepository.find(0L));
-//        System.out.println(usersRepository.find(1L));
-//        System.out.println(usersRepository.find(2L));
     }
 }
