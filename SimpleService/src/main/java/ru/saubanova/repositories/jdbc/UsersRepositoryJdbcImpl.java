@@ -28,14 +28,14 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     this.jdbcTemplate = new JdbcTemplate(dataSource);
   }
 
-  private RowMapper<User> usersRowMapper = (row, rowNumber) -> {
-    return new User(row.getLong("id"),
-            row.getString("first_name"),
-            row.getString("last_name"),
-            row.getString("login"),
-            row.getString("password"));
-  };
 
+  private RowMapper<User> usersRowMapper = (row, rowNumber) -> User.builder()
+            .id(row.getLong("id"))
+            .firstName(row.getString("first_name"))
+            .lastName(row.getString("last_name"))
+            .login(row.getString("login"))
+            .password(row.getString("password"))
+            .build();
 
   @Override
   public void save(User model) {
