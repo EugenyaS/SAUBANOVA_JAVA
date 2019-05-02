@@ -1,29 +1,23 @@
 package ru.saubanova;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.saubanova.models.User;
 import ru.saubanova.repositories.UsersRepository;
-import ru.saubanova.repositories.jdbc.UsersRepositoryJdbcImpl;
 
 import java.util.List;
 
 public class MainOnJdbcRepository {
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
-    private static final String DB_URL = "jdbc:postgresql://192.168.83.102:5432/my_service";
 
-    public static void main(String[] args) {
-        DriverManagerDataSource dataSource=new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUsername(DB_USER);
-        dataSource.setPassword(DB_PASSWORD);
-        dataSource.setUrl(DB_URL);
 
-        UsersRepository usersRepository = new UsersRepositoryJdbcImpl(dataSource);
-        List<User> users = usersRepository.findAll();
+  public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext("ru.saubanova.config\\context.xml");
+    UsersRepository usersRepository = context.getBean(UsersRepository.class);
 
-        for (User user : users) {
-            System.out.println(user);
-        }
+    List<User> users = usersRepository.findAll();
+
+    for (User user : users) {
+      System.out.println(user);
     }
+  }
 }

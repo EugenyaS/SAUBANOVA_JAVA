@@ -6,8 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import ru.saubanova.models.User;
 import ru.saubanova.repositories.UsersRepository;
 
-import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
@@ -20,12 +20,12 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
   private final static String SQL_SELECT_ALL = "select * from service_user";
 
   //language=SQL
-  private final static String SQL_INSERT_USER = "insert into service_user(first_name,last_name,login,password) values (?, ?, ?, ?)";
+  private final static String SQL_INSERT_USER = "insert into service_user(first_name,last_name,login,password_hash) values (?, ?, ?, ?)";
 
   private JdbcTemplate jdbcTemplate;
 
-  public UsersRepositoryJdbcImpl(DataSource dataSource) {
-    this.jdbcTemplate = new JdbcTemplate(dataSource);
+  public UsersRepositoryJdbcImpl(JdbcTemplate  jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
   }
 
 
@@ -34,12 +34,12 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             .firstName(row.getString("first_name"))
             .lastName(row.getString("last_name"))
             .login(row.getString("login"))
-            .password(row.getString("password"))
+            .passwordHash(row.getString("password_hash"))
             .build();
 
   @Override
   public void save(User model) {
-    jdbcTemplate.update(SQL_INSERT_USER, model.getFirstName(), model.getLastName(), model.getLogin(), model.getPassword());
+    jdbcTemplate.update(SQL_INSERT_USER, model.getFirstName(), model.getLastName(), model.getLogin(), model.getPasswordHash());
   }
 
   @Override
@@ -57,11 +57,11 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
   }
 
   @Override
-  public User findOneByLogin(String login) {
+  public Optional<User> findOneByLogin(String login) {
     try {
-      return jdbcTemplate.queryForObject(SQL_SELECT_BY_LOGIN, usersRowMapper, login);
+      return Optional.of(jdbcTemplate.queryForObject(SQL_SELECT_BY_LOGIN, usersRowMapper, login));
     } catch (EmptyResultDataAccessException e) {
-      return null;
+      return Optional.empty();
     }
   }
 }
