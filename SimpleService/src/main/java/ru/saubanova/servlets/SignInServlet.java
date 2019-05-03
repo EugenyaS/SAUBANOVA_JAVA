@@ -42,7 +42,7 @@ public class SignInServlet extends HttpServlet {
             "\t<form method='post'>\n" +
             "\t\t<input type=\"text\" name=\"login\" placeholder=\"Login\">\n" +
             "\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\">\n" +
-            "\t\t<input type=\"submit\"  value=\"signUp\">\n" +
+            "\t\t<input type=\"submit\"  value=\"signIn\">\n" +
             "\t</form>\n" +
             "</div>\n" +
             "</body>\n" +

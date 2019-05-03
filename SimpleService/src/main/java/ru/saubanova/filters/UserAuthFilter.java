@@ -48,19 +48,19 @@ public class UserAuthFilter implements Filter {
       }
       response.sendRedirect("/signIn");
       return;
-     }else {
+    }else {
       filterChain.doFilter(request, response);
     }
   }
 
 
-    @Override
-    public void destroy () {
+  @Override
+  public void destroy () {
 
-    }
+  }
 
   private boolean forProtectedRequest(HttpServletRequest request) {
     String path = request.getServletPath();
     return !(path.equals("/signIn") || path.equals("/signUp"));
   }
-  }
+}

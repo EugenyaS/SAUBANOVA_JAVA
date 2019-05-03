@@ -1,14 +1,17 @@
 package ru.saubanova.repositories.jdbc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import ru.saubanova.models.User;
 import ru.saubanova.repositories.UsersRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
   //language=SQL
@@ -22,12 +25,8 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
   //language=SQL
   private final static String SQL_INSERT_USER = "insert into service_user(first_name,last_name,login,password_hash) values (?, ?, ?, ?)";
 
+  @Autowired
   private JdbcTemplate jdbcTemplate;
-
-  public UsersRepositoryJdbcImpl(JdbcTemplate  jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
-
 
   private RowMapper<User> usersRowMapper = (row, rowNumber) -> User.builder()
             .id(row.getLong("id"))

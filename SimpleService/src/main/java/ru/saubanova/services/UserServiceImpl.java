@@ -1,7 +1,9 @@
 package ru.saubanova.services;
 
 import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import ru.saubanova.dto.AuthUserDto;
 import ru.saubanova.models.User;
 import ru.saubanova.models.UserAuth;
@@ -13,9 +15,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Component
 public class UserServiceImpl implements UserService {
+  @Autowired
   private UsersRepository usersRepository;
+  @Autowired
   private UserAuthRepository userAuthRepository;
+  @Autowired
   private PasswordEncoder encoder;
 
   public UserServiceImpl(UsersRepository usersRepository, UserAuthRepository userAuthRepository, PasswordEncoder encoder) {

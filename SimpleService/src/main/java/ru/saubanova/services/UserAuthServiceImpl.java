@@ -1,5 +1,7 @@
 package ru.saubanova.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.saubanova.models.User;
 import ru.saubanova.models.UserAuth;
 import ru.saubanova.repositories.UserAuthRepository;
@@ -7,12 +9,10 @@ import ru.saubanova.repositories.UserAuthRepository;
 import javax.servlet.http.Cookie;
 import java.util.Optional;
 
+@Component
 public class UserAuthServiceImpl implements UserAuthService {
+  @Autowired
   UserAuthRepository userAuthRepository;
-
-  public UserAuthServiceImpl(UserAuthRepository userAuthRepository) {
-    this.userAuthRepository = userAuthRepository;
-  }
 
   @Override
   public Optional<User> findUserByCookie(Cookie cookie) {

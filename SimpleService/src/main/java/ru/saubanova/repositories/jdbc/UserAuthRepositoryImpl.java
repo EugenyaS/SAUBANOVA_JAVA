@@ -1,8 +1,10 @@
 package ru.saubanova.repositories.jdbc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import ru.saubanova.models.User;
 import ru.saubanova.models.UserAuth;
 import ru.saubanova.repositories.UserAuthRepository;
@@ -10,6 +12,7 @@ import ru.saubanova.repositories.UserAuthRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class UserAuthRepositoryImpl implements UserAuthRepository {
 
   //language=SQL
@@ -30,11 +33,8 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
   //language=SQL
   private final static String SQL_INSERT_USER = "insert into user_auth(user_id,cookie_value) values (?, ?)";
 
+  @Autowired
   private JdbcTemplate jdbcTemplate;
-
-  public UserAuthRepositoryImpl(JdbcTemplate jdbcTemplate) {
-    this.jdbcTemplate = jdbcTemplate;
-  }
 
   private RowMapper<UserAuth> rowMapper = (row, rowNumber) -> {
     UserAuth userAuth = UserAuth.builder().cookieValue(row.getString("cookie_value")).build();
