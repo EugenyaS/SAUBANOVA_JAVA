@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
-@WebServlet("/signIn")
 public class SignInServlet extends HttpServlet {
   private UserService userService;
 

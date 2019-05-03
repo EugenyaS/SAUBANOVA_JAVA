@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.saubanova.dto.AuthUserDto;
+import ru.saubanova.dto.UserDto;
 import ru.saubanova.models.User;
 import ru.saubanova.models.UserAuth;
 import ru.saubanova.repositories.UserAuthRepository;
@@ -64,5 +65,12 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<User> getAllUsers() {
     return usersRepository.findAll();
+  }
+
+  @Override
+  public void addUser(UserDto userDto) {
+    User user = User.builder().firstName(userDto.getFirstName())
+            .lastName(userDto.getLastName()).build();
+    usersRepository.save(user);
   }
 }

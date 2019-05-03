@@ -9,6 +9,13 @@
 </head>
 <body>
 <div>
+    <form action="/users" method="post">
+        <input type="text" name="firstName">
+        <input type="text" name="lastName">
+        <input type="submit" value="Add">
+    </form>
+</div>
+<div>
     <table>
         <tr>
             <th>id</th>
