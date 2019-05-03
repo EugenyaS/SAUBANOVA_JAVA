@@ -24,7 +24,7 @@ public class SignInServlet extends HttpServlet {
 
   @Override
   public void init(ServletConfig config)  {
-    ApplicationContext context = new ClassPathXmlApplicationContext("ru.saubanova.config\\context.xml");
+    ApplicationContext context = (ApplicationContext) config.getServletContext().getAttribute("springContext");
     userService = context.getBean(UserService.class);
   }
 
@@ -60,7 +60,7 @@ public class SignInServlet extends HttpServlet {
     if (cookieValue.isPresent()) {
       Cookie cookie = new Cookie("CLIENT_ID", cookieValue.get());
       resp.addCookie(cookie);
-      resp.sendRedirect("/hello");
+      resp.sendRedirect("/users");
     }
     else {
       resp.sendRedirect("/signIn");

@@ -12,4 +12,8 @@
         <servlet-name>helloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>ru.saubanova.listener.SpringContextListener</listener-class>
+    </listener>
 </web-app>

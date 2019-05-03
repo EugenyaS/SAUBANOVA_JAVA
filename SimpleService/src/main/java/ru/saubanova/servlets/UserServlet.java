@@ -26,7 +26,7 @@ public class UserServlet extends HttpServlet {
 
   @Override
   public void init(ServletConfig config) throws ServletException {
-    ApplicationContext context = new ClassPathXmlApplicationContext("ru.saubanova.config\\context.xml");
+    ApplicationContext context = (ApplicationContext) config.getServletContext().getAttribute("springContext");
     userService = context.getBean(UserService.class);
   }
 }

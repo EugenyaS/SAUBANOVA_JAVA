@@ -13,6 +13,11 @@
         <constructor-arg name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
+    <bean id="userAuthService" class="ru.saubanova.services.UserAuthServiceImpl">
+        <constructor-arg name="userAuthRepository" ref="userAuthRepository"/>
+    </bean>
+
+
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <bean id="usersRepository" class="ru.saubanova.repositories.jdbc.UsersRepositoryJdbcImpl">
