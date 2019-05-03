@@ -2,6 +2,8 @@ package ru.saubanova.models;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 
 @Builder
 @Getter
@@ -9,6 +11,9 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class UserAuth {
-  User user;
-  String cookieValue;
+  private Long id;
+  private User user;
+  private String cookieValue;
+  private LocalDateTime lastLogin;
+
 }

@@ -17,9 +17,10 @@ public class UserServiceImpl implements UserService {
   private UserAuthRepository userAuthRepository;
   private PasswordEncoder encoder;
 
-  public UserServiceImpl(UsersRepository usersRepository, PasswordEncoder encoder) {
+  public UserServiceImpl(UsersRepository usersRepository, UserAuthRepository userAuthRepository, PasswordEncoder encoder) {
     this.usersRepository = usersRepository;
     this.encoder = encoder;
+    this.userAuthRepository = userAuthRepository;
   }
 
   @Override
@@ -35,7 +36,12 @@ public class UserServiceImpl implements UserService {
     if (userCandidate.isPresent()) {
       User user = userCandidate.get();
       if (encoder.matches(userDto.getPassword(), user.getPasswordHash())) {
-        return Optional.of(UUID.randomUUID().toString());
+        String cookieValue=UUID.randomUUID().toString();
+        UserAuth userAuth = UserAuth.builder()
+                .user(user)
+                .cookieValue(cookieValue).build();
+        userAuthRepository.save(userAuth);
+        return Optional.of(cookieValue);
       }
     }
     return Optional.empty();
