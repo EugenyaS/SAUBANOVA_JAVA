@@ -20,46 +20,11 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
   @Autowired
   private UsersRepository usersRepository;
-  @Autowired
-  private UserAuthRepository userAuthRepository;
-  @Autowired
-  private PasswordEncoder encoder;
+
+
 
   public UserServiceImpl(UsersRepository usersRepository, UserAuthRepository userAuthRepository, PasswordEncoder encoder) {
     this.usersRepository = usersRepository;
-    this.encoder = encoder;
-    this.userAuthRepository = userAuthRepository;
-  }
-
-  @Override
-  public void signUp(AuthUserDto userDto) {
-    String passwordHash = encoder.encode(userDto.getPassword());
-    User newUser = User.builder().login(userDto.getLogin()).passwordHash(passwordHash).build();
-    usersRepository.save(newUser);
-  }
-
-  @Override
-  public Optional<String> signInAndCreateCookie(AuthUserDto userDto) {
-    Optional<User> userCandidate = usersRepository.findOneByLogin(userDto.getLogin());
-    if (userCandidate.isPresent()) {
-      User user = userCandidate.get();
-      if (encoder.matches(userDto.getPassword(), user.getPasswordHash())) {
-        String cookieValue=UUID.randomUUID().toString();
-        UserAuth userAuth = UserAuth.builder()
-                .user(user)
-                .cookieValue(cookieValue).build();
-        userAuthRepository.save(userAuth);
-        return Optional.of(cookieValue);
-      }
-    }
-    return Optional.empty();
-
-
-  }
-  @Override
-  public boolean isExistByCookie(String cookieValue) {
-    Optional<UserAuth> userAuth = userAuthRepository.getOneByCookie(cookieValue);
-    return userAuth.isPresent();
   }
 
   @Override
