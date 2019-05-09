@@ -17,6 +17,7 @@ public class UserProfile {
   private String lastName;
   private String firstName;
   private String patronymic;
+  private String email;
   @ManyToOne
   @JoinColumn(name = "post_id", nullable = false)
   private Post postId;

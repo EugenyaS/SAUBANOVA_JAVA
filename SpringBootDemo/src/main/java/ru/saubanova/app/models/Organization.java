@@ -15,6 +15,9 @@ public class Organization {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  @Column(length=50)
+  @Column(length = 50)
   private String code;
+  @ManyToOne
+  @JoinColumn(name = "parent_id")
+  private Organization organizationId;
 }
