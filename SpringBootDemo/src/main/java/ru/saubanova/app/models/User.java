@@ -27,6 +27,7 @@ public class User implements IEntity {
   private  Organization organization;
   @Enumerated (value=EnumType.STRING)
   private Role role;
-  @OneToMany(mappedBy = "user")
-  private List<UserProfile> userProfile;
+  @ManyToOne(cascade={CascadeType.ALL},fetch=FetchType.LAZY)
+  @JoinColumn(name = "user_profile_id")
+  private UserProfile userProfile;
 }

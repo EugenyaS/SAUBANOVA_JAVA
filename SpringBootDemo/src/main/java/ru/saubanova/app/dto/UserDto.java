@@ -24,7 +24,7 @@ public class UserDto extends BaseDto<User> {
     this.login = user.getLogin();
     this.role=user.getRole();
     this.organization = user.getOrganization() == null ? null : new OrganizationDictDto(user.getOrganization());
-    this.userProfile = user.getUserProfile() == null ? null : new UserProfileDto(user.getUserProfile().get(0));
+    this.userProfile = user.getUserProfile() == null ? null : new UserProfileDto(user.getUserProfile());
   }
 
 }

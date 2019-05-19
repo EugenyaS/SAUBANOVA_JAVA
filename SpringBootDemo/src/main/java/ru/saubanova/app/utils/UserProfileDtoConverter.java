@@ -31,9 +31,6 @@ public class UserProfileDtoConverter implements BaseDtoConverter<UserProfile, Us
     userProfile.setLastName(dto.getLastName());
     userProfile.setPatronymic(dto.getPatronymic());
     userProfile.setPost(postRepository.getOne(dto.getPost().getId()));
-    if (dto.getUserId()!=null) {
-      userProfile.setUser(userRepository.getOne(dto.getUserId()));
-    }
     return userProfile;
   }
 }

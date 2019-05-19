@@ -10,7 +10,6 @@ import ru.saubanova.app.models.UserProfile;
 @AllArgsConstructor
 public class UserProfileDto extends BaseDto<UserProfile> {
 
-  private Long userId;
   private String lastName;
   private String firstName;
   private String patronymic;
@@ -19,7 +18,6 @@ public class UserProfileDto extends BaseDto<UserProfile> {
 
   public UserProfileDto(UserProfile userProfile){
     super(userProfile);
-    this.userId=userProfile.getUser().getId();
     this.email=userProfile.getEmail();
     this.firstName=userProfile.getFirstName();
     this.lastName=userProfile.getLastName();

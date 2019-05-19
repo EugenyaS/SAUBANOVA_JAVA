@@ -23,7 +23,4 @@ public class UserProfile implements IEntity {
   @ManyToOne
   @JoinColumn(name = "post_id", nullable = false)
   private Post post;
-  @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
 }

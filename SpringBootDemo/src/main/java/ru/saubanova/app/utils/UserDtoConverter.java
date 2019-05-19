@@ -37,7 +37,7 @@ public class UserDtoConverter implements BaseDtoConverter<User, UserDto> {
     if (user.getRole() != Role.ADMIN) {
       user.setRole(Role.USER);
     } ;
-    user.setUserProfile(userProfileDtoConverter.toEntity(dto.getUserProfile().));
+    user.setUserProfile(userProfileDtoConverter.toEntity(dto.getUserProfile()));
 
     return user;
   }
