@@ -17,7 +17,7 @@ public class OrganizationController {
   OrganizationService organizationService;
 
   @RequestMapping(value = "/orgs", method = RequestMethod.GET)
-  public List<OrganizationDto> getPost() {
+  public List<OrganizationDto> getOrganization() {
     return organizationService.getOrganizations();
   }
 

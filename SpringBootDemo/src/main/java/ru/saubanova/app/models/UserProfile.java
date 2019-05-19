@@ -1,6 +1,7 @@
 package ru.saubanova.app.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +10,9 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-public class UserProfile {
+public class UserProfile implements IEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -20,7 +22,8 @@ public class UserProfile {
   private String email;
   @ManyToOne
   @JoinColumn(name = "post_id", nullable = false)
-  private Post postId;
-  @OneToOne(mappedBy = "userProfile")
+  private Post post;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
   private User user;
 }

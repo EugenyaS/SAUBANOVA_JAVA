@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-public enum Role {
-  ADMIN, USER
+public enum Role  {
+  ADMIN, USER;
+
 }

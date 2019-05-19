@@ -16,8 +16,10 @@ public class PostController {
   PostService postService;
 
   @RequestMapping(value = "/posts", method = RequestMethod.GET)
-  public List<PostDto> getPost() {
-    return  postService.getPosts();
+  public List<PostDto> getPost()
+  {
+    List<PostDto> result =  postService.getPosts();
+    return result;
   }
 
 }

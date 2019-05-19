@@ -1,18 +1,22 @@
 package ru.saubanova.app.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.saubanova.app.models.Post;
 
+import javax.validation.constraints.NegativeOrZero;
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDto extends PostDictDto {
-
-  private String code;
-  public PostDto(Post post) {
+public class PostDictDto extends BaseDto<Post> {
+  private String name;
+  public PostDictDto(Post post){
     super(post);
-    this.code = post.getCode();
+    this.name = post.getName();
   }
+
 }

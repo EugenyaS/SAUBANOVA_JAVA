@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.saubanova.app.dto.UserDto;
 import ru.saubanova.app.models.User;
 import ru.saubanova.app.services.UserService;
 
@@ -20,7 +21,7 @@ public class UserController {
 
   @GetMapping("/users")
   public String getUsers(ModelMap model){
-    List<User> users= new ArrayList<>();
+    List<UserDto> users= new ArrayList<>();
     users = userService.getAllUsers();
     model.addAttribute("users", users);
     return "users";
@@ -28,7 +29,7 @@ public class UserController {
 
   @PostMapping("users/add")
   @ResponseBody
-  public  List<User> addUser(@RequestBody User user){
+  public  List<UserDto> addUser(@RequestBody UserDto user){
     userService.saveUser(user);
     return userService.getAllUsers();
   }

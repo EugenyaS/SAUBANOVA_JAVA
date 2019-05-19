@@ -17,11 +17,6 @@ public class PostServiceImpl implements PostService {
   @Override
   public List<PostDto> getPosts() {
     List<Post> posts = postRepository.findAll();
-//    List<PostDTO> postsDTOs= new ArrayList<>();
-//    for (Post post : posts) {
-//      postsDTOs.add(new PostDTO(post));
-//    }
-//    return postDTOs;
     return posts.stream().map(PostDto::new).collect(Collectors.toList());
   }
 }
