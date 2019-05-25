@@ -1,6 +1,6 @@
 package ru.saubanova.app.controllers;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,11 +9,11 @@ public class RootController {
   @GetMapping("/")
   //@PreAuthorize("permitAll()")
 // public String getRootPage(Authentication authentication) {
- public String getRootPage() {
-//    if (authentication != null) {
-//      return "redirect:/profile";
-//    } else {
+ public String getRootPage( Authentication authentication) {
+    if (authentication != null) {
+      return "redirect:/profile";
+    } else {
       return "redirect:/signIn";
-//    }
+    }
   }
 }

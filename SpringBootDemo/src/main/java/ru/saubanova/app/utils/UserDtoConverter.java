@@ -29,7 +29,7 @@ public class UserDtoConverter implements BaseDtoConverter<User, UserDto> {
     } else {
       user = userRepository.getOne(dto.getId());
     }
-    user.setLogin(dto.getLogin());
+    user.setLogin(dto.getLogin().toLowerCase());
     if (dto.getPassword() != null) {
       user.setPassword(encoder.encode(dto.getPassword()));
     }

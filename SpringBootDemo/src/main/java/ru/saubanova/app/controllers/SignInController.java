@@ -21,6 +21,6 @@ public class SignInController {
 
   @PostMapping
   public String signIn(){
-    return "redirect:/users";
+    return "redirect:/profile";
   }
 }
