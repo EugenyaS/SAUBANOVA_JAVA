@@ -1,5 +1,6 @@
 package ru.saubanova.app.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RootController {
   @GetMapping("/")
+  @PreAuthorize("permitAll()")
   //@PreAuthorize("permitAll()")
 // public String getRootPage(Authentication authentication) {
  public String getRootPage( Authentication authentication) {

@@ -1,4 +1,4 @@
-package ru.saubanova.app.security;
+package ru.saubanova.app.security.details;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

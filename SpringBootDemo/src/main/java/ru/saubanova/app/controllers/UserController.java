@@ -1,6 +1,7 @@
 package ru.saubanova.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+
 public class UserController {
   @Autowired
   UserService userService;
 
   @GetMapping("/users")
+  @PreAuthorize("hasAuthority('ADMIN')")
   public String getUsers(ModelMap model){
     List<UserDto> users= new ArrayList<>();
     users = userService.getAllUsers();
@@ -28,6 +31,7 @@ public class UserController {
   }
 
   @PostMapping("users/add")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @ResponseBody
   public  List<UserDto> addUser(@RequestBody UserDto user){
     userService.saveUser(user);

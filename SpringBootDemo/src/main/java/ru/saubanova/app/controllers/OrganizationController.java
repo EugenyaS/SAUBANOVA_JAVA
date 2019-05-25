@@ -1,6 +1,7 @@
 package ru.saubanova.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class OrganizationController {
   OrganizationService organizationService;
 
   @RequestMapping(value = "/orgs", method = RequestMethod.GET)
+  @PreAuthorize("isAuthenticated()")
   public List<OrganizationDto> getOrganization() {
     return organizationService.getOrganizations();
   }

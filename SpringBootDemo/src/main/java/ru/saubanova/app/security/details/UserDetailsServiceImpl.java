@@ -1,4 +1,4 @@
-package ru.saubanova.app.security;
+package ru.saubanova.app.security.details;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -35,6 +35,16 @@
                 success: function(response){
                     let resultPlace = document.getElementById("user_table");
                     let result = '<table>';
+                    result += '<tr>'+
+                        '<th>Фамилия</th>' +
+                        '<th>Имя</th>' +
+                        '<th>Отчество</th>' +
+                        '<th>Организация</th>' +
+                        '<th>Должность</th>' +
+                        '<th>e-mail</th>' +
+                        '<th>Логин</th>' +
+                        '<th>Роль</th>' +
+                        '</tr>';
                     for (let i = 0; i < response.length; i++) {
                         let current = response[i];
 
@@ -132,8 +142,8 @@
 <div id="user_table">
     <table>
         <tr>
-            <th>Имя</th>
             <th>Фамилия</th>
+            <th>Имя</th>
             <th>Отчество</th>
             <th>Организация</th>
             <th>Должность</th>
@@ -143,11 +153,11 @@
         </tr>
         <#list users as user>
             <tr>
-                <td>${user.userProfile.firstName!""}</td>
                 <td>${user.userProfile.lastName!""}</td>
+                <td>${user.userProfile.firstName!""}</td>
                 <td>${user.userProfile.patronymic!""}</td>
                 <td>${user.organization.name!""}</td>
-                <td>${user.userProfile.postName!""}</td>
+                <td>${user.userProfile.post.name!""}</td>
                 <td>${user.userProfile.email!""}</td>
                 <td>${user.login}</td>
                 <td>${user.role}</td>

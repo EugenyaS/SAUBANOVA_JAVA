@@ -9,10 +9,10 @@
 </head>
 <body>
 Логин: ${user.login} </br>
-Фамилия: ${user.userProfile.lastName} </br>
-Имя: ${user.userProfile.firstName} </br>
-Отчество: ${user.patronymic} </br>
-Должность: ${user.post.name} </br>
-Организация: ${user.organization.name} </br>
+Фамилия: ${user.userProfile.lastName!""} </br>
+Имя: ${user.userProfile.firstName!""} </br>
+Отчество: ${user.patronymic!""} </br>
+Должность: ${user.userProfile.post.name!""} </br>
+Организация: ${user.organization.name!""} </br>
 </body>
 </html>
